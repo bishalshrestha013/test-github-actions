@@ -9,11 +9,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
+
     steps:
     - uses: actions/checkout@v4
-    - name: "Building docker image..."
-      run: docker build . -t mrshrestha013/test-github-actions
-    - name: "Authenticating dockerhub..."
-      run: echo "${{secrets.DOCKERHUB_PASSWORD}} | docker login -u ${{secrets.DOCKERHUB_USERNAME}} --password-stdin"
-    - name: "Pushing docker image to dockerhub..."
-      run: docker push mrshrestha013/test-github-actions:latest
+    - run: docker build . -t mrshrestha013/test-github-actions
+    - run: echo "${{secrets.DOCKERHUB_PASSWORD}}" | docker login -u ${{secrets.DOCKERHUB_USERNAME}} --password-stdin 
+    - run: docker push mrshrestha013/test-github-actions:latest
