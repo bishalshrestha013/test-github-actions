@@ -1,0 +1,18 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: "Building docker image..."
+      run: docker build . -t mrshrestha013/test-github-actions
+    - run: echo "${{secrets.DOCKERHUB_PASSWORD}} | docker login -u ${{DOCKERHUB_USERNAME}} --password-stdin"
+    - name: "Pushing docker image to dockerhub..."
+      run: docker push mrshrestha013/test-github-actions:latest
